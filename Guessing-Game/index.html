@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f4f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.2s;
+}
+
+.container:hover {
+    transform: translateY(-10px);
+}
+
+.head {
+    font-size: 1.5em;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.entry input[type="text"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.2s;
+}
+
+.entry input[type="text"]:focus {
+    border-color: #007BFF;
+    outline: none;
+}
+
+#btn {
+    background-color: #007BFF;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#btn:hover {
+    background-color: #0056b3;
+}
+
+.wrng {
+    color: #ff4d4d;
+    font-size: 0.9em;
+    height: 20px; /* Ensure this element doesn't collapse when empty */
+    margin-top: 10px;
+}
+
+#guess {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #555555;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="head" ><h1>Guess the Number</h1></div>
+        <div class="entry">
+            <input type="text" id="input" />
+            <button id="btn">Guess</button>
+            <p id="wrng"></p>
+            <p id="guess">No of Guess: 0</p>
+        </div>
+    </div>
+    <script>
+        
+        const btn=document.getElementById('btn');
+        let input=document.getElementById('input')
+        let wrng=document.getElementById('wrng');
+        let guesses=document.getElementById('guess')
+
+        let ans=Math.floor(Math.random()*100) + 1;
+        let numOfguess=0;
+        btn.addEventListener('click',()=>{
+            guessesNumber();
+            
+        })
+        function guessesNumber(){
+            if(input.value < 1 || input.value > 100 || isNaN(input.value)){
+                wrng.innerHTML='Enter the Number Between 1 to 100'
+            }
+            else{
+                numOfguess++;
+                guesses.innerHTML='No of Guess : ' + numOfguess;
+                if(input.value > ans){
+                    wrng.innerHTML='You Guessed To High!'
+                    input.value=""
+
+                } else if(input.value < ans){
+                    wrng.innerHTML='You Guess To Low'
+                    input.value=""
+
+                }
+                else{
+                    wrng.innerHTML='Congratulation You Won !'
+                    input.value=""
+                    setTimeout(()=>{
+                        resetGame();
+                    },5000)
+                }
+            }
+
+            
+        }
+
+        function resetGame(){
+
+            numOfguess=0;
+            ans=Math.floor(Math.random()*100) + 1;
+            input.value="";
+            guesses.innerHTML='No of Guesses : 0';
+            
+           
+
+        }
+       
+
+        
+ 
+    </script>
+
+    
+</body>
+</html>
